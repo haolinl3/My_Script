@@ -1,0 +1,16 @@
+proc rmsd_file {p} {
+        set m1 [$p molindex]
+        set tf [molinfo top get numframes]
+        set file [open rmsd.txt w]
+        set ref [atomselect 0 [$p text] frame 0]
+	set ref1 [atomselect 0 "noh and protein"]
+        for {set k 0} {$k < $tf} {incr k} {
+                set sel [atomselect 1 [$p text] frame $k]
+                set M [measure fit $sel $ref1]
+                $sel move $M
+                set rmsd [measure rmsd $sel $ref1]
+                puts $file "$rmsd"
+        }
+        close $file
+        return "file created"
+}

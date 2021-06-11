@@ -1,0 +1,13 @@
+proc gyr_file {p} {
+  set m1 [$p molindex]
+  set tf [molinfo top get numframes]
+  set file [open gyration.txt w]
+  for {set k 0} {$k < $tf} {incr k} {
+    set sel [atomselect top [$p text] frame $k]
+    set gyration [measure rgyr $sel]
+    puts $file "$gyration"
+  }
+  close $file
+  return "file created"
+
+}

@@ -1,0 +1,13 @@
+proc sasa_file {p} {
+  set m1 [$p molindex]
+  set tf [molinfo top get numframes]
+  set file [open sasa.txt w]
+  for {set k 0} {$k < $tf} {incr k} {
+    set sel [atomselect top [$p text] frame $k]
+    set sasa [measure sasa 1.4 $sel]
+    puts $file "$sasa"
+  }
+  close $file
+  return "file created"
+
+}
