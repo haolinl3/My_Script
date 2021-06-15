@@ -12,5 +12,5 @@ while IFS= read -r file
 do
 			atp=${file: -8}
 			echo $atp
-			find . -name "*$atp" -exec cp {} ~/c3 \;
+			find . -name "*$atp" -exec cp {} ~/ATP_find \;
 done < "${in}"
